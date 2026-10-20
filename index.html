@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Excellent Institute - Python Vault</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-placeholder">🐍</div>
+            <h1>Python Code Vault</h1>
+            <p>Excellent Institute | Tap a template to load it into your IDE</p>
+        </header>
+
+        <main class="vault-grid">
+            <!-- Basics & input() -->
+            <div class="template-card" onclick="loadTemplate('basics')">
+                <div class="card-header">
+                    <h2>Basics & input()</h2>
+                    <span class="tag tag-blue">Core</span>
+                </div>
+                <p>Standard I/O, variables, type casting, and string formatting.</p>
+                <button class="load-btn">LOAD TO IDE ↗</button>
+            </div>
+
+            <!-- Loops & Comprehensions -->
+            <div class="template-card" onclick="loadTemplate('loops')">
+                <div class="card-header">
+                    <h2>Loops & Comprehensions</h2>
+                    <span class="tag tag-pink">Iteration</span>
+                </div>
+                <p>For loops, while loops, and Pythonic list comprehensions.</p>
+                <button class="load-btn">LOAD TO IDE ↗</button>
+            </div>
+
+            <!-- Functions & Recursion -->
+            <div class="template-card" onclick="loadTemplate('functions')">
+                <div class="card-header">
+                    <h2>Functions & Recursion</h2>
+                    <span class="tag tag-yellow">Logic</span>
+                </div>
+                <p>Function definitions, default arguments, and recursive calls.</p>
+                <button class="load-btn">LOAD TO IDE ↗</button>
+            </div>
+
+            <!-- OOP Classes -->
+            <div class="template-card" onclick="loadTemplate('oop')">
+                <div class="card-header">
+                    <h2>OOP Classes</h2>
+                    <span class="tag tag-purple">Structure</span>
+                </div>
+                <p>Classes, initialization (__init__), and inheritance.</p>
+                <button class="load-btn">LOAD TO IDE ↗</button>
+            </div>
+
+            <!-- NumPy Array & Matrix Operations -->
+            <div class="template-card" onclick="loadTemplate('numpy')">
+                <div class="card-header">
+                    <h2>NumPy Arrays & Matrices</h2>
+                    <span class="tag tag-green">Data Science</span>
+                </div>
+                <p>Offline matrix initialization, reshaping, and mathematical operations.</p>
+                <button class="load-btn">LOAD TO IDE ↗</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
