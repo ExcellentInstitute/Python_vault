@@ -1,128 +1,62 @@
-/* style.css */
-:root {
-    --bg-dark: #0F172A;
-    --bg-surface: #1E293B;
-    --border-color: #334155;
-    --text-main: #F8FAFC;
-    --text-muted: #94A3B8;
-    
-    --accent-blue: #38BDF8;
-    --accent-pink: #F472B6;
-    --accent-yellow: #FACC15;
-    --accent-purple: #C084FC;
-    --accent-green: #4ADE80;
+/* Hide default scrollbars but allow scrolling */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* Custom modern scrollbar for main window and code blocks */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #475569;
 }
 
-body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    padding: 24px 16px;
+/* Code block styling */
+.code-preview {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
     line-height: 1.5;
+    background-color: #020617;
+    color: #38BDF8;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    overflow-x: auto;
+    white-space: pre;
+    max-height: 200px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+    border: 1px solid #1E293B;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
+/* Card hover animation */
+.program-card {
+    transition: all 0.2s ease-in-out;
+}
+.program-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    border-color: #4F46E5;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 40px;
+/* Load button animation */
+.btn-load {
+    transition: all 0.2s;
 }
-
-.logo-placeholder {
-    font-size: 48px;
-    margin-bottom: 8px;
+.program-card:hover .btn-load {
+    background-color: #4F46E5;
+    color: white;
 }
-
-header h1 {
-    font-size: 24px;
-    margin-bottom: 8px;
-}
-
-header p {
-    color: var(--text-muted);
-    font-size: 14px;
-}
-
-.vault-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 16px;
-}
-
-.template-card {
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.template-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent-blue);
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-}
-
-.card-header h2 {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.template-card p {
-    color: var(--text-muted);
-    font-size: 14px;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-
-.tag {
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px 8px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.tag-blue { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); }
-.tag-pink { background: rgba(244, 114, 182, 0.1); color: var(--accent-pink); }
-.tag-yellow { background: rgba(250, 204, 21, 0.1); color: var(--accent-yellow); }
-.tag-purple { background: rgba(192, 132, 252, 0.1); color: var(--accent-purple); }
-.tag-green { background: rgba(74, 222, 128, 0.1); color: var(--accent-green); }
-
-.load-btn {
-    background-color: transparent;
-    color: var(--accent-blue);
-    border: 1px solid var(--accent-blue);
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-align: center;
-    width: 100%;
-}
-
-.template-card:hover .load-btn {
-    background-color: var(--accent-blue);
-    color: var(--bg-dark);
+.btn-load:active {
+    transform: scale(0.95);
 }
