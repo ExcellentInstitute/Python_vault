@@ -3,70 +3,518 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Excellent Institute - Python Vault</title>
+    
+    <!-- STRICT ANTI-CACHE META TAGS -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>Python Code Vault | Excellent Institute</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo-placeholder">🐍</div>
-            <h1>Python Code Vault</h1>
-            <p>Excellent Institute | Tap a template to load it into your IDE</p>
-        </header>
+<body class="bg-slate-900 text-slate-200 font-['Plus_Jakarta_Sans',sans-serif] h-screen overflow-hidden flex flex-col">
 
-        <main class="vault-grid">
-            <!-- Basics & input() -->
-            <div class="template-card" onclick="loadTemplate('basics')">
-                <div class="card-header">
-                    <h2>Basics & input()</h2>
-                    <span class="tag tag-blue">Core</span>
+    <!-- Header -->
+    <header class="bg-slate-800 border-b border-slate-700 p-4 sm:px-6 shadow-lg shrink-0 z-20">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center justify-between w-full sm:w-auto gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/30 shrink-0">
+                        <i class="fa-brands fa-python text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg sm:text-xl font-extrabold text-white leading-tight">Python Code Vault</h1>
+                        <p class="text-[10px] sm:text-xs text-indigo-400 font-bold uppercase tracking-widest">Excellent Institute</p>
+                    </div>
                 </div>
-                <p>Standard I/O, variables, type casting, and string formatting.</p>
-                <button class="load-btn">LOAD TO IDE ↗</button>
+                
+                <!-- Mobile Manual Refresh Button -->
+                <button onclick="window.location.reload(true)" class="sm:hidden w-10 h-10 bg-slate-700 rounded-xl flex items-center justify-center text-slate-300 hover:bg-indigo-500 hover:text-white transition-all">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
             </div>
+            
+            <div class="flex items-center gap-3 w-full sm:w-72 md:w-96">
+                <!-- Search Bar -->
+                <div class="relative flex-1">
+                    <i class="fa-solid fa-search absolute left-3 top-3 text-slate-400"></i>
+                    <input type="text" id="searchInput" placeholder="Search Python, AI, ML, Data Science..." class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all placeholder-slate-500">
+                </div>
+                <!-- Desktop Refresh Button -->
+                <button onclick="window.location.reload(true)" class="hidden sm:flex w-11 h-11 bg-slate-700 rounded-xl items-center justify-center text-slate-300 hover:bg-indigo-500 hover:text-white transition-all shrink-0">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
-            <!-- Loops & Comprehensions -->
-            <div class="template-card" onclick="loadTemplate('loops')">
-                <div class="card-header">
-                    <h2>Loops & Comprehensions</h2>
-                    <span class="tag tag-pink">Iteration</span>
-                </div>
-                <p>For loops, while loops, and Pythonic list comprehensions.</p>
-                <button class="load-btn">LOAD TO IDE ↗</button>
-            </div>
-
-            <!-- Functions & Recursion -->
-            <div class="template-card" onclick="loadTemplate('functions')">
-                <div class="card-header">
-                    <h2>Functions & Recursion</h2>
-                    <span class="tag tag-yellow">Logic</span>
-                </div>
-                <p>Function definitions, default arguments, and recursive calls.</p>
-                <button class="load-btn">LOAD TO IDE ↗</button>
-            </div>
-
-            <!-- OOP Classes -->
-            <div class="template-card" onclick="loadTemplate('oop')">
-                <div class="card-header">
-                    <h2>OOP Classes</h2>
-                    <span class="tag tag-purple">Structure</span>
-                </div>
-                <p>Classes, initialization (__init__), and inheritance.</p>
-                <button class="load-btn">LOAD TO IDE ↗</button>
-            </div>
-
-            <!-- NumPy Array & Matrix Operations -->
-            <div class="template-card" onclick="loadTemplate('numpy')">
-                <div class="card-header">
-                    <h2>NumPy Arrays & Matrices</h2>
-                    <span class="tag tag-green">Data Science</span>
-                </div>
-                <p>Offline matrix initialization, reshaping, and mathematical operations.</p>
-                <button class="load-btn">LOAD TO IDE ↗</button>
-            </div>
-        </main>
+    <!-- Category Filters -->
+    <div class="bg-slate-800/50 border-b border-slate-700/50 shrink-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 overflow-x-auto no-scrollbar flex items-center gap-2" id="categoryContainer">
+            <!-- Categories injected by JS -->
+        </div>
     </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <!-- Main Content Area (Scrollable Grid) -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar pb-32">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Statistics / Counter -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider" id="resultsCount">Loading programs...</h2>
+            </div>
+
+            <!-- Program Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5" id="programGrid">
+                <!-- Cards injected by JS -->
+            </div>
+
+            <!-- Empty State (Hidden by default) -->
+            <div id="emptyState" class="hidden flex-col items-center justify-center py-20 text-center">
+                <i class="fa-solid fa-ghost text-6xl text-slate-700 mb-4"></i>
+                <h3 class="text-xl font-bold text-slate-300">No programs found</h3>
+                <p class="text-sm text-slate-500 mt-2">Try searching with a different keyword.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- External Script -->
+    <script src="script.js?v=2"></script>
+
+    <!-- ========================================================================================= -->
+    <!-- ⬇️ PYTHON VAULT DATABASE: PASTE ALL BATCHES DIRECTLY BELOW THIS LINE ⬇️ -->
+    <!-- ========================================================================================= -->
+
+<script type="text/plain" id="vault-database">
+
+[PROGRAM]
+Title: 1. Check Whether a Number is Prime
+Category: Python Core
+Code:
+# Program 1: Find whether a number is a prime number
+print("=== Prime Number Checker ===")
+num = int(input("Enter an integer: "))
+
+if num <= 1:
+    print(f"{num} is NOT a prime number.")
+else:
+    is_prime = True
+    for i in range(2, int(num ** 0.5) + 1):
+        if num % i == 0:
+            is_prime = False
+            break
+
+    if is_prime:
+        print(f"{num} is a PRIME number.")
+    else:
+        print(f"{num} is NOT a prime number.")
+
+[PROGRAM]
+Title: 2. Calculate m Raised to Power n (m^n)
+Category: Python Core
+Code:
+# Program 2: Print m raised to power n, where m and n are read from the user
+print("=== Calculate m Raised to Power n ===")
+m = float(input("Enter base number (m): "))
+n = int(input("Enter exponent (n): "))
+
+result = m ** n
+print(f"\nResult: {m} raised to the power {n} = {result}")
+
+[PROGRAM]
+Title: 3. Parameterised Function for Even or Odd (Returns True/False)
+Category: Python Core
+Code:
+# Program 3: Parameterised function returning True if even, False if odd
+def is_even(number):
+    """Returns True if the number is even, otherwise False."""
+    if number % 2 == 0:
+        return True
+    else:
+        return False
+
+print("=== Even or Odd Function Checker ===")
+num = int(input("Enter an integer: "))
+
+result = is_even(num)
+print(f"Function returned: {result}")
+
+if result:
+    print(f"Conclusion: {num} is Even.")
+else:
+    print(f"Conclusion: {num} is Odd.")
+
+[PROGRAM]
+Title: 4. Summation of Alternating Series (1 - 2 + 3 - 4 + ... n)
+Category: Python Core
+Code:
+# Program 4: Summation of series 1 - 2 + 3 - 4 + 5 - 6 + ... up to n terms
+print("=== Alternating Series Summation ===")
+n = int(input("Enter number of terms (n): "))
+
+total_sum = 0
+series_terms = []
+
+for i in range(1, n + 1):
+    if i % 2 != 0:
+        total_sum += i
+        series_terms.append(f"+{i}" if i > 1 else f"{i}")
+    else:
+        total_sum -= i
+        series_terms.append(f"-{i}")
+
+print("\nSeries :", " ".join(series_terms))
+print(f"Summation up to {n} terms = {total_sum}")
+
+[PROGRAM]
+Title: 5. Menu-Driven String Operations (Built-in Functions)
+Category: Python Core
+Code:
+# Program 5: Menu-driven string operations using built-in functions
+print("=== Menu-Driven String Operations ===")
+text = input("Enter a string: ")
+
+while True:
+    print("\n--- STRING MENU ---")
+    print("1. Find frequency of a character in the string")
+    print("2. Replace a character by another character")
+    print("3. Remove the first occurrence of a character")
+    print("4. Remove all occurrences of a character")
+    print("5. Exit")
+
+    choice = input("Enter your choice (1-5): ").strip()
+
+    if choice == '1':
+        ch = input("Enter character to find frequency: ")
+        print(f"Frequency of '{ch}' in '{text}' = {text.count(ch)}")
+
+    elif choice == '2':
+        old_ch = input("Enter character to be replaced: ")
+        new_ch = input("Enter new character: ")
+        updated = text.replace(old_ch, new_ch)
+        print(f"Updated String: {updated}")
+
+    elif choice == '3':
+        ch = input("Enter character to remove its first occurrence: ")
+        updated = text.replace(ch, "", 1)
+        print(f"String after removing first '{ch}': {updated}")
+
+    elif choice == '4':
+        ch = input("Enter character to remove all occurrences: ")
+        updated = text.replace(ch, "")
+        print(f"String after removing all '{ch}': {updated}")
+
+    elif choice == '5':
+        print("Exiting program.")
+        break
+    else:
+        print("Invalid choice! Please select 1 to 5.")
+
+[PROGRAM]
+Title: 6. Find All Occurrence Indices of Substring in String
+Category: Python Core
+Code:
+# Program 6: Return indices of all occurrences of second string in first string or -1
+def find_all_occurrences(main_str, sub_str):
+    indices = []
+    start = 0
+    while True:
+        pos = main_str.find(sub_str, start)
+        if pos == -1:
+            break
+        indices.append(pos)
+        start = pos + 1
+
+    return indices if len(indices) > 0 else -1
+
+print("=== Substring Occurrence Indices Finder ===")
+first_string = input("Enter the first (main) string: ")
+second_string = input("Enter the second (search) string: ")
+
+result = find_all_occurrences(first_string, second_string)
+print("\nOutput:", result)
+
+[PROGRAM]
+Title: 7. Menu-Driven NumPy Array Operations
+Category: Python Core
+Code:
+# Program 7: Menu-driven NumPy program (Ones, Max/Min, Dot Product, Reshape)
+import numpy as np
+
+print("=== Menu-Driven NumPy Operations ===")
+
+while True:
+    print("\n--- NUMPY MENU ---")
+    print("1. Create an array filled with 1's")
+    print("2. Find maximum and minimum values from an array")
+    print("3. Dot product of 2 arrays")
+    print("4. Reshape a 1-D array to 2-D array")
+    print("5. Exit")
+
+    choice = input("Enter your choice (1-5): ").strip()
+
+    if choice == '1':
+        rows = int(input("Enter number of rows: "))
+        cols = int(input("Enter number of columns: "))
+        ones_arr = np.ones((rows, cols), dtype=int)
+        print("Array filled with 1's:\n", ones_arr)
+
+    elif choice == '2':
+        raw = input("Enter space-separated numbers (e.g., 12 45 7 89 23): ")
+        arr = np.array([float(x) for x in raw.split()])
+        print("Array:", arr)
+        print("Maximum Value:", np.max(arr))
+        print("Minimum Value:", np.min(arr))
+
+    elif choice == '3':
+        a = np.array([[1, 2], [3, 4]])
+        b = np.array([[5, 6], [7, 8]])
+        print("Array A:\n", a)
+        print("Array B:\n", b)
+        print("Dot Product of A and B:\n", np.dot(a, b))
+
+    elif choice == '4':
+        arr_1d = np.arange(1, 13)
+        print("Original 1-D Array (12 elements):", arr_1d)
+        arr_2d = arr_1d.reshape(3, 4)
+        print("Reshaped 2-D Array (3x4):\n", arr_2d)
+
+    elif choice == '5':
+        print("Exiting NumPy menu.")
+        break
+    else:
+        print("Invalid choice! Please enter 1 to 5.")
+
+[PROGRAM]
+Title: 8. Letter Frequency Counter Using Dictionary
+Category: Python Core
+Code:
+# Program 8: Calculate frequency of each letter in a sentence using a dictionary
+def count_letter_frequency(sentence):
+    freq_dict = {}
+    for ch in sentence:
+        if ch.isalpha():
+            letter = ch.lower()
+            freq_dict[letter] = freq_dict.get(letter, 0) + 1
+    return freq_dict
+
+print("=== Letter Frequency Counter (Dictionary) ===")
+user_sentence = input("Enter a sentence: ")
+
+letter_counts = count_letter_frequency(user_sentence)
+
+print("\nDictionary of Letter Frequencies:")
+print(letter_counts)
+
+print("\nFormatted Breakdown:")
+for letter, count in sorted(letter_counts.items()):
+    print(f"'{letter}' : {count}")
+
+[PROGRAM]
+Title: 9. Tuple Operations on t1 = (1,2,5,7,9,2,4,6,8,10)
+Category: Python Core
+Code:
+# Program 9: Tuple operations on t1 = (1, 2, 5, 7, 9, 2, 4, 6, 8, 10)
+t1 = (1, 2, 5, 7, 9, 2, 4, 6, 8, 10)
+print("Original Tuple t1:", t1)
+
+# a. Print contents of t1 in 2 separate lines (half on each line)
+mid = len(t1) // 2
+print("\n(a) First half and second half on separate lines:")
+print("Line 1:", t1[:mid])
+print("Line 2:", t1[mid:])
+
+# b. Print all even values of t1 as another tuple t2
+t2_even = tuple(x for x in t1 if x % 2 == 0)
+print("\n(b) Tuple t2 containing all even values of t1:")
+print("t2 =", t2_even)
+
+# c. Concatenate tuple t2 = (11, 13, 15) with t1
+t2_concat = (11, 13, 15)
+combined_tuple = t1 + t2_concat
+print("\n(c) Concatenating t2 = (11, 13, 15) with t1:")
+print("Concatenated Tuple =", combined_tuple)
+
+# d. Return maximum and minimum value from t1
+print("\n(d) Maximum and Minimum values in t1:")
+print("Maximum Value =", max(t1))
+print("Minimum Value =", min(t1))
+
+[PROGRAM]
+Title: 10. Copy Odd-Numbered (Alternative) Lines from file1 to file2
+Category: Python Core
+Code:
+# Program 10: Copy only odd-numbered (alternative) lines from file1 to file2
+def copy_odd_lines(file1_name, file2_name):
+    with open(file1_name, "r") as f1, open(file2_name, "w") as f2:
+        lines = f1.readlines()
+        for index, line in enumerate(lines, start=1):
+            if index % 2 != 0:  # Odd-numbered line (1, 3, 5, ...)
+                f2.write(line)
+
+# Step 1: Create a sample file1.txt so this program runs immediately in the IDE
+sample_content = """Line 1: Python Programming
+Line 2: Data Structures
+Line 3: Artificial Intelligence
+Line 4: Operating Systems
+Line 5: Machine Learning
+Line 6: Computer Networks
+"""
+
+with open("file1.txt", "w") as f:
+    f.write(sample_content)
+
+print("=== Copy Alternative (Odd-Numbered) Lines Between Files ===")
+print("--- Contents of file1.txt ---")
+print(sample_content.strip())
+
+# Step 2: Copy odd lines to file2.txt
+copy_odd_lines("file1.txt", "file2.txt")
+
+# Step 3: Display contents of file2.txt
+print("\n--- Contents of file2.txt (Odd Lines Only) ---")
+with open("file2.txt", "r") as f:
+    print(f.read().strip())
+
+[PROGRAM]
+Title: 11. Handle ZeroDivisionError Exception
+Category: Python Core
+Code:
+# Program 11: Handle ZeroDivisionError exception when dividing a number by zero
+print("=== ZeroDivisionError Exception Handling ===")
+
+try:
+    numerator = float(input("Enter the numerator: "))
+    denominator = float(input("Enter the denominator (try 0): "))
+    result = numerator / denominator
+    print(f"\nResult: {numerator} / {denominator} = {result}")
+except ZeroDivisionError as e:
+    print("\n[Exception Caught] ZeroDivisionError: Cannot divide a number by zero!")
+    print("Python System Message:", e)
+except ValueError:
+    print("\n[Exception Caught] ValueError: Please enter valid numeric values.")
+finally:
+    print("Execution of try-except block completed.")
+
+[PROGRAM]
+Title: 12. Raise Exception If List of Integers Contains Duplicates
+Category: Python Core
+Code:
+# Program 12: Read a list of integers from user and throw an exception on duplicates
+class DuplicateNumberError(Exception):
+    """Custom exception raised when duplicate integers are found."""
+    pass
+
+print("=== Duplicate Integer Exception Checker ===")
+raw_input_str = input("Enter integers separated by spaces (e.g., 10 20 30 20): ")
+
+try:
+    numbers = [int(x) for x in raw_input_str.split()]
+    seen = set()
+
+    for num in numbers:
+        if num in seen:
+            raise DuplicateNumberError(f"Duplicate integer detected: {num}")
+        seen.add(num)
+
+    print("\nSuccess! All entered integers are unique:", numbers)
+
+except DuplicateNumberError as err:
+    print(f"\n[Exception Thrown] {err}")
+except ValueError:
+    print("\n[Error] Please enter valid integers separated by spaces.")
+
+[PROGRAM]
+Title: 13. Plot Sine, Cosine, Polynomial, and Exponential Curves
+Category: Python Core
+Code:
+# Program 13: Display Sine, Cosine, Polynomial, and Exponential curves using a function
+import numpy as np
+import matplotlib.pyplot as plt
+
+def display_mathematical_curves():
+    x = np.linspace(-2 * np.pi, 2 * np.pi, 200)
+    x_small = np.linspace(-3, 3, 200)
+
+    fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+    fig.suptitle("Sine, Cosine, Polynomial & Exponential Curves", fontsize=14, fontweight="bold")
+
+    # 1. Sine Curve
+    axes[0, 0].plot(x, np.sin(x), color="royalblue", linewidth=2)
+    axes[0, 0].set_title("Sine Curve: y = sin(x)")
+    axes[0, 0].set_xlabel("x (radians)")
+    axes[0, 0].set_ylabel("sin(x)")
+    axes[0, 0].grid(True, linestyle="--", alpha=0.6)
+
+    # 2. Cosine Curve
+    axes[0, 1].plot(x, np.cos(x), color="crimson", linewidth=2)
+    axes[0, 1].set_title("Cosine Curve: y = cos(x)")
+    axes[0, 1].set_xlabel("x (radians)")
+    axes[0, 1].set_ylabel("cos(x)")
+    axes[0, 1].grid(True, linestyle="--", alpha=0.6)
+
+    # 3. Polynomial Curve (y = x^3 - 3x)
+    axes[1, 0].plot(x_small, x_small**3 - 3 * x_small, color="forestgreen", linewidth=2)
+    axes[1, 0].set_title("Polynomial Curve: y = x³ - 3x")
+    axes[1, 0].set_xlabel("x")
+    axes[1, 0].set_ylabel("y")
+    axes[1, 0].grid(True, linestyle="--", alpha=0.6)
+
+    # 4. Exponential Curve (y = e^x)
+    axes[1, 1].plot(x_small, np.exp(x_small), color="darkorange", linewidth=2)
+    axes[1, 1].set_title("Exponential Curve: y = eˣ")
+    axes[1, 1].set_xlabel("x")
+    axes[1, 1].set_ylabel("eˣ")
+    axes[1, 1].grid(True, linestyle="--", alpha=0.6)
+
+    plt.tight_layout()
+    plt.show()
+    print("Curves generated! View the plot in the Visual Graph Viewer.")
+
+display_mathematical_curves()
+
+[PROGRAM]
+Title: 14. Company ABC Yearly Profit Line Plot (Matplotlib)
+Category: Python Core
+Code:
+# Program 14: Line plot of Company ABC's monthly profits over a year
+import matplotlib.pyplot as plt
+
+print("=== Company ABC Yearly Profit Line Plot ===")
+choice = input("Use default 12-month data or enter manually? (d/m): ").strip().lower()
+
+if choice == 'm':
+    months = []
+    profits = []
+    n = int(input("How many months of data (e.g., 12)? "))
+    for i in range(n):
+        m = int(input(f"Enter Month Number ({i+1}): "))
+        p = float(input(f"Enter Total Profit for Month {m}: "))
+        months.append(m)
+        profits.append(p)
+else:
+    months = list(range(1, 13))
+    profits = [210000, 185000, 225000, 240000, 275000, 260000,
+               295000, 310000, 280000, 330000, 360000, 410000]
+
+print("\nMonth Numbers :", months)
+print("Total Profits :", profits)
+
+plt.figure(figsize=(9, 5))
+plt.plot(months, profits, marker='o', color='indigo', linestyle='-', linewidth=2.5, markersize=6)
+plt.title("Company ABC: Monthly Profit Analysis Over a Year", fontsize=13, fontweight="bold")
+plt.xlabel("Month Number", fontsize=11, fontweight="bold")
+plt.ylabel("Total profit", fontsize=11, fontweight="bold")
+plt.xticks(months)
+plt.grid(True, linestyle="--", alpha=0.6)
+plt.tight_layout()
+plt.show()
+print("Line plot rendered in the Visual Graph Viewer!")
